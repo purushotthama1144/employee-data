@@ -14,4 +14,17 @@ export class EmployeeService {
   fetchEmployeeList():Observable<any> {
     return this.http.get(this.baseUrl + '/employeeList')
   }
+
+  addEmployee(payload:any):Observable<any> {
+    return this.http.post(this.baseUrl + '/addEmployee' , payload)
+  }
+
+  updateEmployee(payload:any):Observable<any> {
+    return this.http.post(this.baseUrl + '/updateEmployee' , payload)
+  
+  }
+  deleteEmployee(id:any):Observable<any> {
+    return this.http.delete(this.baseUrl + '/deleteEmployee' , id)
+  }
+
 }
