@@ -9,7 +9,5 @@ export class SetemployeedataService {
   employeeEmailid = "";
   id:any;
 
-
-  constructor() { }
-
+  employeeList:any[] = [];
 }

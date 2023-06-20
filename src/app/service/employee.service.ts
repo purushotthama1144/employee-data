@@ -24,7 +24,8 @@ export class EmployeeService {
   
   }
   deleteEmployee(id:any):Observable<any> {
-    return this.http.delete(this.baseUrl + '/deleteEmployee' , id)
+    return this.http.delete(this.baseUrl + '/deleteEmployee' + '/' + id)
   }
+
 
 }

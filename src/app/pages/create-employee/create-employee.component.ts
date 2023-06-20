@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmployeeService } from 'src/app/service/employee.service';
+import { SetemployeedataService } from 'src/app/service/setemployeedata.service';
 
 @Component({
   selector: 'app-create-employee',
@@ -8,30 +9,45 @@ import { EmployeeService } from 'src/app/service/employee.service';
   styleUrls: ['./create-employee.component.scss']
 })
 export class CreateEmployeeComponent implements OnInit {
-  firstName:any;
-  lastName:any;
-  emailId:any;
+  firstName: string = "";
+  lastName: string = "";
+  emailId: string = "";
   submitted = false;
+  employeeEmailId: any;
+  employeeList: any[] = [];
 
-  constructor(private router: Router, private employeeService: EmployeeService) { }
+  constructor(private router: Router, private employeeService: EmployeeService, private setemployeedataService: SetemployeedataService) { }
 
   ngOnInit() {
-
+    this.employeeList = this.setemployeedataService.employeeList
+    this.employeeEmailId = this.employeeList.filter((val) => val.employeeEmailId)
+    console.log(this.employeeEmailId)
   }
 
   save() {
-    const payload = {
-      "id":"",
-      "employeeFirstName":this.firstName,
-      "employeeLastName":this.lastName,
-      "employeeEmailId":this.emailId
-    }
-    if((this.firstName != null) && (this.lastName != null) && (this.emailId != null)) {
-      this.employeeService.addEmployee(payload).subscribe((response)=> {
-        this.submitted = true;
-        console.log(response)
-        this.gotoList();
-      })
+    if ((this.firstName != "") && (this.lastName != "") && (this.emailId != "")) {
+      this.employeeEmailId = this.employeeList.find((val) => val.employeeEmailId == this.emailId)
+      console.log(this.employeeEmailId)
+      if (!this.employeeEmailId) {
+        const payload = {
+          "id": "",
+          "employeeFirstName": this.firstName,
+          "employeeLastName": this.lastName,
+          "employeeEmailId": this.emailId
+        }
+
+        this.employeeService.addEmployee(payload).subscribe((response) => {
+          this.submitted = true;
+          console.log(response)
+          this.gotoList();
+        })
+
+      } else {
+        alert("data exists")
+      }
+    } else {
+      alert("please fill the details")
+
     }
   }
 

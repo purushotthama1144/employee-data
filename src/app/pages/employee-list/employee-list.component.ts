@@ -21,6 +21,7 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.fetchEmployeeList().subscribe((res) => {
       console.log(res)
       this.employees = res;
+      this.setemployeedataService.employeeList = this.employees;
     })
   }
 
