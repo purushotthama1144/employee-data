@@ -21,13 +21,11 @@ export class CreateEmployeeComponent implements OnInit {
   ngOnInit() {
     this.employeeList = this.setemployeedataService.employeeList
     this.employeeEmailId = this.employeeList.filter((val) => val.employeeEmailId)
-    console.log(this.employeeEmailId)
   }
 
   save() {
     if ((this.firstName != "") && (this.lastName != "") && (this.emailId != "")) {
       this.employeeEmailId = this.employeeList.find((val) => val.employeeEmailId == this.emailId)
-      console.log(this.employeeEmailId)
       if (!this.employeeEmailId) {
         const payload = {
           "id": "",
@@ -38,7 +36,6 @@ export class CreateEmployeeComponent implements OnInit {
 
         this.employeeService.addEmployee(payload).subscribe((response) => {
           this.submitted = true;
-          console.log(response)
           this.gotoList();
         })
 
