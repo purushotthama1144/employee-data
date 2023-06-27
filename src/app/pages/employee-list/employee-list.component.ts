@@ -19,14 +19,12 @@ export class EmployeeListComponent implements OnInit {
 
   getEmployeeeList() {
     this.employeeService.fetchEmployeeList().subscribe((res) => {
-      console.log(res)
       this.employees = res;
       this.setemployeedataService.employeeList = this.employees;
     })
   }
 
   deleteEmployee(id: any) {
-    console.log(id)
     this.employeeService.deleteEmployee(id).subscribe((del) => {
       if(del){
         this.router.navigate(['/' , 'employees'])
@@ -35,8 +33,6 @@ export class EmployeeListComponent implements OnInit {
   }
 
   employeeDetails(id: any) {
-
-    console.log(id)
     if (id != null) {
       this.router.navigate(['/details' , id])
     }
