@@ -28,12 +28,19 @@ export class EmployeeListComponent implements OnInit {
   deleteEmployee(id: any) {
     console.log(id)
     this.employeeService.deleteEmployee(id).subscribe((del) => {
-      console.log(del)
+      if(del){
+        this.router.navigate(['/' , 'employees'])
+      }
     })
   }
 
   employeeDetails(id: any) {
 
+    console.log(id)
+    if (id != null) {
+      this.router.navigate(['/details' , id])
+    }
+    
   }
 
   updateEmployee(employee: any) {
@@ -42,7 +49,7 @@ export class EmployeeListComponent implements OnInit {
       this.setemployeedataService.employeeLastName = employee.employeeLastName;
       this.setemployeedataService.employeeEmailid = employee.employeeEmailId;
       this.setemployeedataService.id = employee.id
-      this.router.navigate(['/', 'update'])
+      this.router.navigate(['/', 'update' , employee.id])
     }
   }
 }

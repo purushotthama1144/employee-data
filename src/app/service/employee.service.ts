@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EmployeeService {
   
   baseUrl = `http://localhost:8080`
@@ -19,13 +20,15 @@ export class EmployeeService {
     return this.http.post(this.baseUrl + '/addEmployee' , payload)
   }
 
-  updateEmployee(payload:any):Observable<any> {
-    return this.http.post(this.baseUrl + '/updateEmployee' , payload)
-  
+  updateEmployee(id:any , payload:any):Observable<any> {
+    return this.http.put(this.baseUrl + '/updateEmployee/' + id , payload)
   }
+
   deleteEmployee(id:any):Observable<any> {
-    return this.http.delete(this.baseUrl + '/deleteEmployee' + '/' + id)
+    return this.http.delete(this.baseUrl + '/deleteEmployee/' + id)
   }
-
-
+  
+  employeeDetails(id:any):Observable<any> {
+    return this.http.get(this.baseUrl + '/employeeDetails/' + id)
+  }
 }

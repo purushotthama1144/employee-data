@@ -15,6 +15,7 @@ export class UpdateEmployeeComponent implements OnInit {
   id:any;
 
   submitted = false;
+  employeeId:any;
 
   constructor(private route: ActivatedRoute, private router: Router,
     private employeeService: EmployeeService, private setemployeedataService: SetemployeedataService) { }
@@ -23,7 +24,8 @@ export class UpdateEmployeeComponent implements OnInit {
     this.firstName = this.setemployeedataService.employeeFirstName;
     this.lastName = this.setemployeedataService.employeeLastName;
     this.emailId = this.setemployeedataService.employeeEmailid;
-    this.id = this.setemployeedataService.id;
+    this.employeeId = this.route.snapshot.paramMap.get('id');
+
   }
 
   updateEmployee() {
@@ -34,7 +36,7 @@ export class UpdateEmployeeComponent implements OnInit {
       "employeeEmailId":this.emailId
     }
     if((this.firstName != null) && (this.lastName != null) && (this.emailId != null)) {
-      this.employeeService.updateEmployee(payload).subscribe((response)=> {
+      this.employeeService.updateEmployee(this.employeeId , payload).subscribe((response)=> {
         this.submitted = true;
         console.log(response)
         this.gotoList();
